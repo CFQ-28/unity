@@ -33,7 +33,16 @@ public class RockControl : MonoBehaviour
     private void RockDrag(BaseEventData data)
     {
         PointerEventData eventData = data as PointerEventData;
-        rock.position += new Vector3(eventData.delta.x, eventData.delta.y, 0);
+         //rock.position += new Vector3(eventData.delta.x, eventData.delta.y, 0);
+
+ Vector2 nowPos;
+ RectTransformUtility.ScreenPointToLocalPointInRectangle(
+     rock.parent as RectTransform,
+     eventData.position,
+     eventData.enterEventCamera,
+     out nowPos);
+ rock.localPosition = nowPos;
+
         //锚点大于圆圈的范围
         if(rock.anchoredPosition.magnitude > 150)
         {
